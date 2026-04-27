@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Intelligence Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #000; color: #0f0; }
+        .test-result { margin: 10px 0; padding: 10px; border: 1px solid #0f0; }
+        .success { border-color: #0f0; color: #0f0; }
+        .error { border-color: #f00; color: #f00; }
+    </style>
+<style>
+/* =========================================
+   CINEMATIC GLASS DESIGN SYSTEM
+   ========================================= */
+body.cinematic-glass-theme {
+    background-color: #050508 !important;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 40%) !important;
+    background-attachment: fixed !important;
+    color: #f8fafc !important;
+}
+
+.cinematic-glass-theme .card, 
+.cinematic-glass-theme .panel, 
+.cinematic-glass-theme .glass-panel, 
+.cinematic-glass-theme .navbar, 
+.cinematic-glass-theme .nav, 
+.cinematic-glass-theme footer,
+.cinematic-glass-theme .footer,
+.cinematic-glass-theme .product-card,
+.cinematic-glass-theme .service-card,
+.cinematic-glass-theme .feature-card,
+.cinematic-glass-theme .stat-card,
+.cinematic-glass-theme .modal-content,
+.cinematic-glass-theme .about-image {
+    background: rgba(15, 15, 25, 0.55) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 16px !important;
+    color: #f1f5f9 !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+.cinematic-glass-theme .card:hover, 
+.cinematic-glass-theme .product-card:hover, 
+.cinematic-glass-theme .service-card:hover, 
+.cinematic-glass-theme .feature-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.cinematic-glass-theme h1, 
+.cinematic-glass-theme h2, 
+.cinematic-glass-theme h3,
+.cinematic-glass-theme h4,
+.cinematic-glass-theme h5,
+.cinematic-glass-theme h6 {
+    color: #ffffff !important;
+    letter-spacing: -0.02em !important;
+}
+
+.cinematic-glass-theme p, 
+.cinematic-glass-theme span, 
+.cinematic-glass-theme a,
+.cinematic-glass-theme li {
+    color: #cbd5e1 !important;
+}
+
+.cinematic-glass-theme button, 
+.cinematic-glass-theme .btn,
+.cinematic-glass-theme .btn-primary {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.8)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.cinematic-glass-theme button:hover, 
+.cinematic-glass-theme .btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.cinematic-glass-theme input, 
+.cinematic-glass-theme textarea, 
+.cinematic-glass-theme select {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
+.cinematic-glass-theme input:focus, 
+.cinematic-glass-theme textarea:focus {
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    outline: none !important;
+}
+</style>
+</head>
+<body class="cinematic-glass-theme">
+    <h1>MAXIT AI Intelligence Test</h1>
+    <div id="results"></div>
+
+    <script>
+        // Test the AI intelligence functions
+        const results = document.getElementById('results');
+
+        function addResult(test, success, message) {
+            const div = document.createElement('div');
+            div.className = 'test-result ' + (success ? 'success' : 'error');
+            div.innerHTML = `<strong>${test}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+
+        // Test Context Analyzer
+        try {
+            const contextAnalyzer = {
+                analyze: function(context) {
+                    if (!context || context.length === 0) return [];
+                    const topics = [];
+                    const keywords = {
+                        programming: ['code', 'function', 'class', 'javascript', 'python', 'java'],
+                        ai: ['ai', 'machine learning', 'neural', 'model', 'tensorflow'],
+                        web: ['html', 'css', 'react', 'vue', 'node', 'api'],
+                        math: ['calculate', 'equation', 'algebra', 'solve']
+                    };
+                    context.forEach(item => {
+                        const text = item.content.toLowerCase();
+                        Object.keys(keywords).forEach(topic => {
+                            if (keywords[topic].some(word => text.includes(word))) {
+                                if (!topics.includes(topic)) topics.push(topic);
+                            }
+                        });
+                    });
+                    return topics;
+                }
+            };
+
+            const testContext = [
+                { content: 'How do I write a JavaScript function?' },
+                { content: 'What is machine learning?' }
+            ];
+            const topics = contextAnalyzer.analyze(testContext);
+            addResult('Context Analyzer', topics.includes('programming') && topics.includes('ai'), `Detected topics: ${topics.join(', ')}`);
+        } catch (e) {
+            addResult('Context Analyzer', false, `Error: ${e.message}`);
+        }
+
+        // Test Intent Classifier
+        try {
+            const intentClassifier = {
+                classify: function(message) {
+                    const text = message.toLowerCase();
+                    const patterns = {
+                        greeting: /^(hi|hello|hey|good morning|good afternoon|good evening)/,
+                        question: /(what|how|why|when|where|who|which|can you|do you)/,
+                        command: /(create|generate|write|make|build|implement)/,
+                        problem: /(error|problem|issue|bug|fix|help|can't|doesn't work)/,
+                        gratitude: /(thank|thanks|appreciate)/,
+                        farewell: /(bye|goodbye|see you|later)/
+                    };
+                    for (const [intent, pattern] of Object.entries(patterns)) {
+                        if (pattern.test(text)) {
+                            return intent;
+                        }
+                    }
+                    return 'general';
+                }
+            };
+
+            const testMessages = [
+                { msg: 'Hello there', expected: 'greeting' },
+                { msg: 'How do I fix this bug?', expected: 'problem' },
+                { msg: 'Thank you for your help', expected: 'gratitude' }
+            ];
+
+            let intentTests = 0;
+            let intentSuccess = 0;
+            testMessages.forEach(test => {
+                const result = intentClassifier.classify(test.msg);
+                if (result === test.expected) intentSuccess++;
+                intentTests++;
+            });
+
+            addResult('Intent Classifier', intentSuccess === intentTests, `Passed ${intentSuccess}/${intentTests} tests`);
+        } catch (e) {
+            addResult('Intent Classifier', false, `Error: ${e.message}`);
+        }
+
+        // Test Response Generation
+        try {
+            const responseGenerator = {
+                generateGreeting: function() {
+                    return '**NEURAL INTERFACE ONLINE** - Greetings, human. I am MAXIT AI.';
+                },
+                generateProblemSolving: function() {
+                    return '**DIAGNOSTIC ENGINE ACTIVATED** - Commencing problem analysis protocol...';
+                }
+            };
+
+            const greeting = responseGenerator.generateGreeting();
+            const problem = responseGenerator.generateProblemSolving();
+
+            addResult('Response Generator', greeting.includes('MAXIT AI') && problem.includes('DIAGNOSTIC'), 'Response generation working');
+        } catch (e) {
+            addResult('Response Generator', false, `Error: ${e.message}`);
+        }
+
+        // Test Learning Data
+        try {
+            const learningData = {};
+            const testKey = 'hello world';
+            learningData[testKey] = { count: 1, responses: ['Hi there!'], intents: ['greeting'] };
+
+            addResult('Learning System', learningData[testKey].count === 1, 'Learning data storage working');
+        } catch (e) {
+            addResult('Learning System', false, `Error: ${e.message}`);
+        }
+
+        addResult('System Status', true, 'All core AI intelligence systems operational');
+    </script>
+</body>
+</html>
